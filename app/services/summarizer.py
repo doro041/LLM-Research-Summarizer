@@ -12,19 +12,16 @@ genai.configure(api_key=os.environ.get("GOOGLE_API_KEY"))
 
 def summarise(pdf_path: str) -> PaperSummary:
     """Summarise a PDF using Google's Generative AI."""
-    
-    # Load and split the PDF
+  
     chunks = load_and_split(pdf_path)
     print(f"Loaded {len(chunks)} chunks from PDF")
-    
-    # Use the native Google AI SDK
+  
     model = genai.GenerativeModel(
-        model_name='gemini-2.5-flash',
+        model_name='gemini-2.5-flash-lite',
         generation_config={'temperature': TEMPERATURE}
     )
     
-    # Batch chunks together to reduce API calls
-    # Process 3-5 chunks per request to stay under rate limits
+    
     batch_size = 3
     batched_chunks = []
     for i in range(0, len(chunks), batch_size):
@@ -67,14 +64,13 @@ Provide a structured summary with the main points."""
                         raise
                 else:
                     raise
-        
-        # Rate limiting: wait between requests
+  
         if i < len(batched_chunks):
             time.sleep(delay_between_requests)
     
     print("\nCombining summaries...")
     
-    # Reduce phase: combine summaries
+
     reduce_prompt_template = """
 You are combining summaries of a research paper.
 
@@ -99,8 +95,7 @@ SUMMARIES:
     
     response = model.generate_content(reduce_prompt)
     combined = response.text
-    
-    # Extract JSON from response (might be wrapped in ```json blocks)
+  
     if "```json" in combined:
         combined = combined.split("```json")[1].split("```")[0].strip()
     elif "```" in combined:

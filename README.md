@@ -4,16 +4,19 @@ An intelligent research paper summarization tool powered by Google's Gemini AI. 
 
 ## Features
 
-- **PDF Processing**: Automatically extracts and processes text from research papers
--  **AI-Powered Summarization**: Uses Google's Gemini 2.5 Flash model for intelligent summarization
--  **Structured Output**: Extracts title, contributions, methodology, results, and limitations
--  **Multiple Export Formats**: 
+- 📄 **PDF Processing**: Automatically extracts and processes text from research papers
+- 🤖 **AI-Powered Summarization**: Uses Google's Gemini 2.5 Flash model for intelligent summarization
+- 📊 **Structured Output**: Extracts title, contributions, methodology, results, and limitations
+- 📝 **Multiple Export Formats**: 
   - Markdown (`.md`)
   - LaTeX (`.tex`)
   - Microsoft Word (`.docx`)
   - PDF (`.pdf`) - optional, requires additional setup
 - ⚡ **Batch Processing**: Efficiently handles large documents with intelligent chunking
-- 🔄 Rate Limit Handling: Built-in retry logic and rate limiting for API stability
+- 🔄 **Rate Limit Handling**: Built-in retry logic and rate limiting for API stability
+- 📚 **Citation Network Analysis**: Identifies key papers, research lineage, and citation patterns
+- 💬 **Interactive Q&A**: Ask questions about the paper and get AI-powered answers
+- 🔬 **Research Gap Identification**: Discovers future research opportunities
 
 ## Project Structure
 
@@ -25,9 +28,10 @@ LLM-Research-Summarizer/
 │   ├── loaders/          # PDF loading and text splitting
 │   ├── prompts/          # AI prompt templates
 │   ├── schemas/          # Pydantic data models
-│   ├── services/         # Core summarization service
+│   ├── services/         # Core services (summarizer, citation analyzer, Q&A system)
 │   └── config.py         # Configuration settings
 ├── data/                 # Input PDFs go here
+├── examples/             # Example scripts
 ├── main.py              # Main entry point
 ├── requirements.txt     # Python dependencies
 └── README.md           # This file
@@ -78,23 +82,69 @@ LLM-Research-Summarizer/
 
 ## Usage
 
+### Basic Usage (Comprehensive Analysis)
+
 1. **Place your PDF** in the `data/` directory
 
 2. **Update the filename** in `main.py`:
    ```python
-   summary = summarise("data/your_paper.pdf")
+   pdf_path = "data/your_paper.pdf"
    ```
 
-3. **Run the summarizer**:
+3. **Run the comprehensive analysis**:
    ```bash
    python main.py
    ```
 
 4. **Find your outputs**:
+   
+   **Summary files:**
    - `summary.md` - Markdown version
    - `summary.tex` - LaTeX version
    - `summary.docx` - Word document
    - `summary.pdf` - PDF version (if GTK is installed)
+   
+   **Citation Analysis:**
+   - `citation_analysis.md` - Citation network analysis report
+   - `citation_analysis.tex` - LaTeX version
+   
+   **Q&A Analysis:**
+   - `qa_analysis.md` - Comprehensive Q&A about the paper
+   - `qa_analysis.tex` - LaTeX version
+   
+   **Research Opportunities:**
+   - `research_gaps.md` - Identified future research directions
+
+### Interactive Q&A Mode
+
+Ask questions interactively about a research paper:
+
+```bash
+python main.py --interactive
+```
+
+Then follow the prompts to ask questions like:
+- "What methodology did the authors use?"
+- "What datasets were used for evaluation?"
+- "What are the main contributions?"
+- "How does this compare to previous work?"
+
+### Using Example Scripts
+
+**Analyze a single paper:**
+```bash
+python examples/analyze_paper.py data/your_paper.pdf
+```
+
+**Compare two papers:**
+```bash
+python examples/analyze_paper.py paper1.pdf paper2.pdf
+```
+
+**Interactive Q&A:**
+```bash
+python examples/analyze_paper.py -i data/your_paper.pdf
+```
 
 ## Configuration
 

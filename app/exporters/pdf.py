@@ -6,13 +6,12 @@ import markdown
 
 def to_pdf(summary: PaperSummary, output_path: str) -> None:
     """Convert PaperSummary to PDF format."""
-    # Convert to markdown first
+   
     md_content = to_markdown(summary)
     
-    # Convert markdown to HTML
+
     html_content = markdown.markdown(md_content)
     
-    # Add basic CSS styling
     styled_html = f"""
     <!DOCTYPE html>
     <html>
